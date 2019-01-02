@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <title>Map example</title>
+</head>
+
+<body ng-app="map-beam" ng-controller="MapController">
+<div id="map"></div>
+<div class="container1">
+    <div style="text-align: center; font-size: 29px">For selecting lag lng please click on the map</div>
+    <div>
+    <div class="label">enter value of x(number of scooter):</div> <input id="x" class="input" type="number" min="1" value="50"/>
+    </div>
+    <div>
+        <div  class="label">enter value of y(radius in KM): </div><input id="y" class="input" min="1" type="number" value="10"/>
+    </div>
+</div>
+<div class="container2">
+    <div>
+        <div  class="label"> Selected Latitude: </div><input id="lat"  value="1.393016" readonly/>
+    </div>
+    <div>
+        <div  class="label"> Selected Longitude: </div><input id="lng" value="103.901659" readonly />
+    </div>
+</div>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.1/lodash.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script src="script.js"></script>
+</body>
+
+</html>

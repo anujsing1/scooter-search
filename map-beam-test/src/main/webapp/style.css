@@ -1,0 +1,41 @@
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 80%;
+      }
+.container1 {
+    height: 10%;
+}
+.container2 {
+    height: 10%;
+}
+.label {
+    float: left;
+    width: 30%;
+    text-align: end;
+}
+#lat {
+    float: left;
+    border: none;
+}
+#lng {
+    float: left;
+    border: none;
+}
+.input {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    background-color: white;
+    background-color: -moz-field;
+    border: 1px solid darkgray;
+    box-shadow: 1px 1px 1px 0 lightgray inset;
+    font: -moz-field;
+    margin-top: 5px;
+    padding: 2px 3px;
+    width: 398px;
+    float: left;
+    width: 9%;
+}
