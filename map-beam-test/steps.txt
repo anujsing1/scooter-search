@@ -1,0 +1,2 @@
+sudo docker build -t anuj_prog --no-cache .
+sudo docker run  -p 8080:8080 -it anuj_prog ./home/run.sh
