@@ -7,10 +7,13 @@ import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 
 public interface LocationMongoRepository extends MongoRepository<LocationEntity, String> {
 
     Page<LocationEntity> findByNameAndLocationNear(String name, Point p, Distance d, Pageable pageable);
 
     Page<LocationEntity> findByLocationNear(Point p, Distance d,Pageable pageable);
+    List<LocationEntity> findByLocationNear(Point p, Distance d);
 }

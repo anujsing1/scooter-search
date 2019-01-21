@@ -1,6 +1,8 @@
 package com.beam.scooter.controller;
 
+import com.beam.scooter.model.DropOffLocationQuantityResponse;
 import com.beam.scooter.model.LocationEntry;
+import com.beam.scooter.model.LocationQuantity;
 import com.beam.scooter.model.LocationResponse;
 import com.beam.scooter.Service.LocationService;
 import io.swagger.annotations.*;
@@ -22,7 +24,7 @@ public class LocationResourceController {
 			notes = "API to get the Scooter locations based on the lat long and radius")
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully sent notification")})
 	@RequestMapping(value = "/{lat}/{long}/{distance}", method = RequestMethod.GET)
-	public final List<LocationResponse> getLocations(
+	public  List<LocationResponse> getLocations(
 			@PathVariable("lat") @ApiParam(value = "location latitude and must be double value") Double latitude,
 			@PathVariable("long") @ApiParam(value = "location longitude and must be double value")Double longitude,
 			@PathVariable("distance") @ApiParam(value = "radius in which scooter needs to be search") double distance,
@@ -37,9 +39,20 @@ public class LocationResourceController {
 	@ApiResponses(value = {@ApiResponse(code = 201, message = "Successfully add the locations")})
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public final void addLocations(
+	public  void addLocations(
 			@RequestBody List<LocationEntry> entries) {
 		service.addLocations(entries);
 
+
+	}
+
+	@ApiOperation(
+			value = "API to get locatino and quantity to dropoff",
+			notes = "API to get locatino and quantity to dropoff")
+	@ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully get the location to drop off")})
+	@RequestMapping(value = "/quantity",method = RequestMethod.POST)
+	public  List<LocationQuantity> getDropOffLocationQuantity(
+			@RequestBody DropOffLocationQuantityResponse dropOffLocationQuantityResponse) {
+		return service.getLocationQuantity(dropOffLocationQuantityResponse.getLocationQuantities(),dropOffLocationQuantityResponse.getProximateDistance());
 	}
 }

@@ -2,6 +2,7 @@ package com.beam.scooter.Service;
 
 import com.beam.scooter.model.LocationEntity;
 import com.beam.scooter.model.LocationEntry;
+import com.beam.scooter.model.LocationQuantity;
 import com.beam.scooter.model.LocationResponse;
 import com.beam.scooter.repo.LocationMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,26 @@ public class LocationService {
                 locationEntry.getLatitude()))).collect(Collectors.toList());
         entities = this.repository.save(entities);
         System.out.println(entities);
+    }
+
+
+    public List<LocationQuantity>  getLocationQuantity(List<LocationQuantity> idealDropOffLocationQuantity, Integer distance) {
+        List<LocationQuantity> locationQuantities = null;
+        List<LocationEntity> locationEntities=  this.repository.findAll();
+        locationQuantities = idealDropOffLocationQuantity.parallelStream().map(locationQuantity -> {
+           List<LocationEntity> locationEntities1 = this.repository.findByLocationNear(new Point(locationQuantity.getPoint().getLongitude(), locationQuantity.getPoint().getLongitude()),
+                    new Distance(distance, Metrics.KILOMETERS));
+           Integer quantity = null;
+           if(locationEntities1.size() >=  locationQuantity.getQuantity() ) {
+               quantity = 0;
+           } else if((locationQuantity.getQuantity() - locationEntities1.size() )<= (locationEntities.size()- locationEntities1.size())){
+               quantity = locationQuantity.getQuantity() - locationEntities1.size();
+           } else {
+               quantity = locationEntities.size()- locationEntities1.size();
+            }
+
+           return  new LocationQuantity(locationQuantity.getPoint(),quantity);
+        }).collect(Collectors.toList());
+        return locationQuantities;
     }
 }
